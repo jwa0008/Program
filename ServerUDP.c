@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 {
 	int sock, length, fromlen, n, *local;
 	struct sockaddr_in server, from;
-	char buffer[256];
+	char buffer[1028] = {' '};
 
 	sock = socket(AF_INET, SOCK_DGRAM, 0);
 	if (sock < 0)
