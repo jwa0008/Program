@@ -4,10 +4,10 @@ import datetime
 
 j = 0
 class MessageObj:
-	TML = '{:#06x}'.format(int(str(5 + len(sys.argv[4]))))[2:]  
-	requestID = '{:#06x}'.format(7)[2:]  
-	operation = '{:#04x}'.format(int(str(sys.argv[3])))[2:]
-	message = "".join("{0:x}".format(ord(c)) for c in sys.argv[4])
+	TML = '%04x' % (len(sys.argv[4]) + 5)  
+        requestID = '%04x' % 7
+        operation = '%02x' %  int(sys.argv[3])
+        message = "".join("{0:x}".format(ord(c)) for c in sys.argv[4])
 
 if sys.argv[3] != str(85) and sys.argv[3] != str(170):
 	print "You must choose either 85 or 170"
@@ -15,7 +15,6 @@ if sys.argv[3] != str(85) and sys.argv[3] != str(170):
 obj = MessageObj()
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 start = datetime.datetime.now()
-print obj.TML + obj.requestID + obj.operation + obj.message
 s.sendto((obj.TML + obj.requestID + obj.operation + obj.message),(sys.argv[1], int(sys.argv[2])))
 recieve = s.recv(256)
 end = datetime.datetime.now()
